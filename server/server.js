@@ -16,6 +16,9 @@ app.use(cors());
 connectDB();
 connectToCloudinary();
 
+app.get("/", (req, res) => {
+  res.send("Contact API is running");
+});
 app.use("/api/auth", authroute);
 app.use("/api/admin", controlRoute);
 app.use("/api/user", userRoute);
