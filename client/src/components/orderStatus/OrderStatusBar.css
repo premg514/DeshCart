@@ -1,0 +1,180 @@
+/* OrderStatusBar.css */
+.status-bar-container {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+  
+  .status-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .status-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  
+  .status-active {
+    color: #343a40;
+  }
+  
+  .status-inactive {
+    color: #adb5bd;
+  }
+  
+  .progress-bar-background {
+    width: 100%;
+    height: 6px;
+    background-color: #e9ecef;
+    border-radius: 6px;
+    position: relative;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  /* Status-specific colors */
+  .progress-pending {
+    background-color: #ffc107; /* Yellow */
+  }
+  
+  .progress-processing {
+    background-color: #0dcaf0; /* Blue */
+  }
+  
+  .progress-shipped {
+    background-color: #20c997; /* Teal */
+  }
+  
+  .progress-delivered {
+    background-color: #198754; /* Green */
+  }
+  
+  .status-dots {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .dot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .align-start {
+    align-items: flex-start;
+  }
+  
+  .align-end {
+    align-items: flex-end;
+  }
+  
+  .status-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid;
+  }
+  
+  .dot-inactive {
+    background-color: white;
+    border-color: #ced4da;
+  }
+  
+  /* Completed steps */
+  .completed-pending {
+    background-color: #ffc107;
+    border-color: white;
+  }
+  
+  .completed-processing {
+    background-color: #0dcaf0;
+    border-color: white;
+  }
+  
+  .completed-shipped {
+    background-color: #20c997;
+    border-color: white;
+  }
+  
+  .completed-delivered {
+    background-color: #198754;
+    border-color: white;
+  }
+  
+  /* Current step */
+  .current-pending {
+    background-color: white;
+    border-color: #ffc107;
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.3);
+  }
+  
+  .current-processing {
+    background-color: white;
+    border-color: #0dcaf0;
+    box-shadow: 0 0 0 2px rgba(13, 202, 240, 0.3);
+  }
+  
+  .current-shipped {
+    background-color: white;
+    border-color: #20c997;
+    box-shadow: 0 0 0 2px rgba(32, 201, 151, 0.3);
+  }
+  
+  .current-delivered {
+    background-color: white;
+    border-color: #198754;
+    box-shadow: 0 0 0 2px rgba(25, 135, 84, 0.3);
+  }
+  
+  /* Cancelled order */
+  .order-cancelled-status {
+    background-color: #f8d7da;
+    color: #842029;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 24px;
+    gap: 10px;
+  }
+  
+  .cancelled-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .cancelled-text {
+    font-weight: 600;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .status-label {
+      font-size: 0.75rem;
+    }
+    
+    .status-dot {
+      width: 14px;
+      height: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .status-label {
+      font-size: 0.7rem;
+    }
+    
+    .status-dot {
+      width: 12px;
+      height: 12px;
+    }
+  }

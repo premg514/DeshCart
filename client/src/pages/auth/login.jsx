@@ -95,7 +95,7 @@ const Login = () => {
       setLoading(false);
     }
   };
-
+console.log(formData.role)
   return (
     <FormContainer>
       <AuthCard>
@@ -125,19 +125,7 @@ const Login = () => {
             </InputWrapper>
           </FormGroup>
 
-          <FormGroup>
-            <Label htmlFor="role">Account Type</Label>
-            <Select
-              id="role"
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-            >
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-              <option value="shopKeeper">Shop Keeper</option>
-            </Select>
-          </FormGroup>
+          
 
           <FormGroup>
             <Label htmlFor="password">Password</Label>
@@ -164,7 +152,19 @@ const Login = () => {
               </PasswordToggle>
             </InputWrapper>
           </FormGroup>
-
+          <FormGroup>
+            <Label htmlFor="role">Account Type</Label>
+            <Select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+              <option value="shopKeeper">Shop Keeper</option>
+            </Select>
+          </FormGroup>
           {error && <ErrorMessage>{error}</ErrorMessage>}
           {success && <SuccessMessage>{success}</SuccessMessage>}
 

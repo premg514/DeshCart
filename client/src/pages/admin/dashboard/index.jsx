@@ -56,10 +56,10 @@ const AdminDashboard = () => {
         <h1>Hi Admin 👋</h1>
         <h4>Here is your dashboard.</h4>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>} {/* ✅ Show error message if fetching fails */}
+        {error && <p style={{ color: 'red' }}>{error}</p>} 
 
         <div className='highlightCards'>
-          <div className='card'>
+          <div className='card' onClick={() => navigate('/admin/products')}>
             <div className='card-top'>
               <h3>Total Products</h3>
               <MdProductionQuantityLimits fontSize={25} />
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
               <h1>{loading ? <LoadingSpinner className="loading-spinner" style={{ width: '40px', height: '40px', borderWidth: '4px' }} /> : products}</h1>
             </div>
           </div>
-          <div className='card' onClick={() => navigate('/admin/getShopkeepers')}> {/* ✅ Corrected navigate usage */}
+          <div className='card' onClick={() => navigate('/admin/getShopkeepers')}>
             <div className='card-top'>
               <h3>Shop Keepers</h3>
               <TfiStatsUp fontSize={23} />

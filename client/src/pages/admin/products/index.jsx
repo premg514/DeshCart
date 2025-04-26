@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Nav from "../../../components/AdminNav";
-import "./index.css";
+import "./product.css";
 import { useNavigate } from "react-router-dom";
 import { RiPencilFill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
@@ -89,7 +89,7 @@ export default function AdminProducts() {
                 <div className="product-content">
                   <div className="icons">
                     <MdDelete
-                      fontSize={30}
+                      fontSize={50}
                       color="red"
                       className="action-icon delete-icon"
                       onClick={() => handleDeleteProduct(product._id)}

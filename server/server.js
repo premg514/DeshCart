@@ -2,19 +2,20 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const { connectToCloudinary } = require("./config/cloudinary");
+
 const authroute = require("./routes/authRoutes");
 const controlRoute = require("./routes/admin");
 const userRoute = require("./routes/user");
 const path = require("path");
 const app = express();
-
 // Middleware
 app.use(express.json());
 app.use(cors());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Connect to MongoDB
 connectDB();
-
+connectToCloudinary()
 // Routes
 app.use("/api/auth", authroute);
 app.use("/api/admin", controlRoute);

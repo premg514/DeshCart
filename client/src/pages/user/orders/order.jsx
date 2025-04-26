@@ -1,17 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import Nav from '../../../components/UserNav';
-import { FaShoppingBag, FaBox, FaTruck, FaCheckCircle, FaTimesCircle, FaArrowLeft, FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
-import { RiTruckLine } from 'react-icons/ri';
-import axios from 'axios';
-import './order.css';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import Nav from "../../../components/UserNav";
+import {
+  FaShoppingBag,
+  FaBox,
+  FaTruck,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaArrowLeft,
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
+import { RiTruckLine } from "react-icons/ri";
+import axios from "axios";
+import "./order.css";
+import { useSelector } from "react-redux";
+import OrderStatusBar from "../../../components/orderStatus/OrderStatus";
 
 const OrderStatus = {
-  PENDING: 'status-pending',
-  PROCESSING: 'status-processing',
-  SHIPPED: 'status-shipped',
-  DELIVERED: 'status-delivered',
-  CANCELLED: 'status-cancelled'
+  PENDING: "status-pending",
+  PROCESSING: "status-processing",
+  SHIPPED: "status-shipped",
+  DELIVERED: "status-delivered",
+  CANCELLED: "status-cancelled",
 };
 
 const OrderStatusIcon = {
@@ -19,7 +29,7 @@ const OrderStatusIcon = {
   PROCESSING: <RiTruckLine className="status-icon" />,
   SHIPPED: <FaTruck className="status-icon" />,
   DELIVERED: <FaCheckCircle className="status-icon" />,
-  CANCELLED: <FaTimesCircle className="status-icon" />
+  CANCELLED: <FaTimesCircle className="status-icon" />,
 };
 
 export default function Orders() {
@@ -46,7 +56,7 @@ export default function Orders() {
         }
 
         setOrders(response.data.orders);
-        
+
         // If there are orders, set the first one as active by default
         if (response.data.orders.length > 0) {
           setActiveOrderId(response.data.orders[0].orderId);
@@ -55,8 +65,8 @@ export default function Orders() {
         console.error("Fetch Orders Error:", err);
         setError(
           err.response?.data?.message ||
-          err.message ||
-          "Failed to fetch orders. Please try again later."
+            err.message ||
+            "Failed to fetch orders. Please try again later."
         );
       } finally {
         setLoading(false);
@@ -75,10 +85,10 @@ export default function Orders() {
   };
 
   const getOrderStatusSteps = (status) => {
-    const allStatuses = ['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED'];
+    const allStatuses = ["PENDING", "PROCESSING", "SHIPPED", "DELIVERED"];
     let currentIndex = allStatuses.indexOf(status);
-    
-    if (status === 'CANCELLED') {
+
+    if (status === "CANCELLED") {
       return (
         <div className="order-cancelled-banner">
           <FaTimesCircle className="cancelled-icon" />
@@ -86,17 +96,27 @@ export default function Orders() {
         </div>
       );
     }
-    
+
     return (
       <div className="order-progress-tracker">
         {allStatuses.map((step, index) => (
           <div key={step} className="progress-step">
-            <div className={`step-icon ${index <= currentIndex ? 'completed' : ''}`}>
+            <div
+              className={`step-icon ${
+                index <= currentIndex ? "completed" : ""
+              }`}
+            >
               {OrderStatusIcon[step]}
             </div>
-            <div className="step-label">{step.charAt(0) + step.slice(1).toLowerCase()}</div>
+            <div className="step-label">
+              {step.charAt(0) + step.slice(1).toLowerCase()}
+            </div>
             {index < allStatuses.length - 1 && (
-              <div className={`step-connector ${index < currentIndex ? 'completed' : ''}`}></div>
+              <div
+                className={`step-connector ${
+                  index < currentIndex ? "completed" : ""
+                }`}
+              ></div>
             )}
           </div>
         ))}
@@ -105,7 +125,7 @@ export default function Orders() {
   };
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
@@ -153,7 +173,10 @@ export default function Orders() {
           <p className="empty-orders-subtext">
             You haven't placed any orders yet.
           </p>
-          <button className="shop-now-button" onClick={() => window.location.href = '/shop'}>
+          <button
+            className="shop-now-button"
+            onClick={() => (window.location.href = "/shop")}
+          >
             Shop Now
           </button>
         </div>
@@ -169,26 +192,34 @@ export default function Orders() {
           <h1 className="orders-title">My Orders</h1>
           <p className="orders-count">{orders.length} order(s)</p>
         </div>
-        
+
         <div className="orders-list">
           {orders.map((order) => (
             <div key={order.orderId} className="order-card">
-              <div className="order-header" onClick={() => toggleOrderDetails(order.orderId)}>
+              <div
+                className="order-header"
+                onClick={() => toggleOrderDetails(order.orderId)}
+              >
                 <div className="order-header-info">
                   <p className="order-number">Order #{order.orderNumber}</p>
                   <div className="order-meta">
                     <span className="order-meta-item">
-                      <FaCalendarAlt className="meta-icon" /> 
+                      <FaCalendarAlt className="meta-icon" />
                       {formatDate(order.createdAt)}
                     </span>
                     <span className="order-meta-item">
-                      <FaMapMarkerAlt className="meta-icon" /> 
-                      {order.shippingAddress?.city}, {order.shippingAddress?.state}
+                      <FaMapMarkerAlt className="meta-icon" />
+                      {order.shippingAddress?.city},{" "}
+                      {order.shippingAddress?.state}
                     </span>
                   </div>
                 </div>
                 <div className="order-header-right">
-                  <div className={`order-status ${OrderStatus[order.orderStatus] || "status-default"}`}>
+                  <div
+                    className={`order-status ${
+                      OrderStatus[order.orderStatus] || "status-default"
+                    }`}
+                  >
                     {OrderStatusIcon[order.orderStatus]}
                     <span>{order.orderStatus}</span>
                   </div>
@@ -198,8 +229,8 @@ export default function Orders() {
 
               {activeOrderId === order.orderId && (
                 <div className="order-details">
-                  {getOrderStatusSteps(order.orderStatus)}
-                  
+                  <OrderStatusBar status={order.orderStatus} />
+
                   <div className="order-content">
                     <div className="order-products">
                       <h3 className="section-title">Products</h3>
@@ -207,7 +238,11 @@ export default function Orders() {
                         {order.products.map((product) => (
                           <div key={product.productId} className="product-item">
                             {product.image ? (
-                              <img src={product.image} alt={product.name} className="product-image" />
+                              <img
+                                src={product.image}
+                                alt={product.name}
+                                className="product-image"
+                              />
                             ) : (
                               <div className="product-image-placeholder">
                                 <FaShoppingBag className="placeholder-icon" />
@@ -216,8 +251,12 @@ export default function Orders() {
                             <div className="product-details">
                               <p className="product-name">{product.name}</p>
                               <div className="product-info">
-                                <span className="product-quantity">Qty: {product.quantity}</span>
-                                <span className="product-price">${product.price.toFixed(2)}</span>
+                                <span className="product-quantity">
+                                  Qty: {product.quantity}
+                                </span>
+                                <span className="product-price">
+                                  ${product.price.toFixed(2)}
+                                </span>
                               </div>
                             </div>
                           </div>
@@ -253,13 +292,17 @@ export default function Orders() {
                         <div className="address-card">
                           <FaMapMarkerAlt className="address-icon" />
                           <div className="address-text">
-                            <p className="address-line">{order.shippingAddress.street}</p>
-                            <p className="address-line">{order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zipCode}</p>
+                            <p className="address-line">
+                              {order.shippingAddress.street}
+                            </p>
+                            <p className="address-line">
+                              {order.shippingAddress.city},{" "}
+                              {order.shippingAddress.state}{" "}
+                              {order.shippingAddress.zipCode}
+                            </p>
                           </div>
                         </div>
                       </div>
-                      
-                    
                     </div>
                   </div>
                 </div>

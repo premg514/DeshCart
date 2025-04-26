@@ -31,13 +31,7 @@ export default function Cart() {
         fetchCartData();
     }, []);
 
-    const calculateSubtotal = () => {
-        return cartProducts.reduce((total, item) => {
-            const price = item?.productID?.price ?? 0;
-            const quantity = item?.productQuantity ?? 0;
-            return total + (price * quantity);
-        }, 0).toFixed(2);
-    };
+   
 
     const handleQuantityChange = async (id, newQuantity) => {
         try {
@@ -60,13 +54,35 @@ export default function Cart() {
         }
     };
 
-    if (isLoading) return <div className="cart-loading">Loading your cart...</div>;
-    if (error) return <div className="cart-error">{error}</div>;
+    if (isLoading) return (
+        <div className="cart-loading">
+            Loading your cart...
+        </div>
+    );
+    
+    if (error) return (
+        <div className="cart-error">
+            <span className="error-icon">⚠️</span>
+            <p>{error}</p>
+            <button onClick={fetchCartData} className="retry-button">
+                Try Again
+            </button>
+        </div>
+    );
+    
     if (cartProducts.length === 0) {
         return (
             <div className="empty-cart">
+                <div className="empty-cart-icon">🛒</div>
                 <h2>Your cart is empty</h2>
-                <button onClick={() => navigate('/')}>Continue Shopping</button>
+                <p>Looks like you haven't added any items to your cart yet. Explore our products and find something you love!</p>
+                <button onClick={() => navigate('/')}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Continue Shopping
+                </button>
             </div>
         );
     }
@@ -97,13 +113,7 @@ export default function Cart() {
                         />
                     ))}
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colSpan="3" className="subtotal-label">Subtotal:</td>
-                        <td className="subtotal-value">${calculateSubtotal()}</td>
-                        <td></td>
-                    </tr>
-                </tfoot>
+                
             </table>
 
             <div className="cart-actions">
@@ -113,6 +123,7 @@ export default function Cart() {
                 >
                     Continue Shopping
                 </button>
+              
             </div>
         </div>
     );

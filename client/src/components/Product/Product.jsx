@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './product.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FiShoppingCart, FiEye, FiHeart } from 'react-icons/fi';
 import { IoMdCheckmark } from 'react-icons/io';
 
 const Product = ({ product }) => {
+  const navigate = useNavigate()
   const { _id, name, description, price, image, category, stockStatus, rating, discount } = product;
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -76,9 +77,9 @@ const Product = ({ product }) => {
         
         
         <div className="product-overlay">
-          <Link to={`/user/product/${_id}`} className="quick-view-btn">
+          <button onClick={()=> navigate(`/user/product/${_id}`)} className="quick-view-btn">
             <FiEye /> View
-          </Link>
+          </button>
           
           <button 
             onClick={handleAddToCart} 

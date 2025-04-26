@@ -88,7 +88,6 @@ export default function Nav() {
             <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
                 <Link to={`/${userRole}/dashboard`} onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
                 <Link to={`/${userRole}/products`} onClick={() => setMobileMenuOpen(false)}>Products</Link>
-                <Link to={`/${userRole}/sales`} onClick={() => setMobileMenuOpen(false)}>Sales</Link>
                 
                 {isAuthenticated ? 
                     <button onClick={handlelogout}>
