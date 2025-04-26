@@ -33,7 +33,7 @@ const login = async (req, res) => {
         res.status(201).json({
             message: `login successfully!`,
             token,
-            user
+            user,
         })
 
     } catch (e) {
